@@ -5,7 +5,7 @@ services:
     image: postgres
   web:
     build: .
-    command: sh -c './wait-for db:5432 -- python3 manage.py runserver 0.0.0.0:8000'
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; python3 manage.py runserver 0.0.0.0:8000'
     volumes:
       - .:/code
     ports:
